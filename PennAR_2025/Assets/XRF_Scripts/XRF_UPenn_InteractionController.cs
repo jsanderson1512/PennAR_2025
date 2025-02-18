@@ -1,0 +1,233 @@
+﻿using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+public class XRF_UPenn_InteractionController : MonoBehaviour
+{
+
+    public Material HighlightMaterial;
+
+    [System.Serializable]
+    public enum InteractionType // your custom enumeration
+    {
+        OnOffController,
+        AnimationController,
+        GrabAndReturn,
+        GrabAndStay,
+        AudioPlayer,
+        CallEvent,
+        GrabWithRotation,
+    };
+
+    public InteractionType myType = InteractionType.OnOffController;  // this public var should appear as a drop down
+
+    //animation stuff
+    public Animator ObjectWithAnimation;
+
+    public bool isSelected;
+    public bool isTeleporter;
+
+
+
+    //on off stuff
+    public int NumberOfThingsToTurnON = 1;
+    public int NumberOfThingsToTurnOFF = 1;
+    public GameObject[] StartOFFClickON;
+    public GameObject[] StartONClickOFF;
+    private bool OnOffSwitch;
+
+
+
+    //grab stuff
+    public Vector3 originalPos = Vector3.zero;
+    public bool isGrabbable;
+    public bool isHandGrabbable;
+
+    //audio stuff
+    public AudioSource theAudioSource;
+    public AudioClip theAudioClip;
+
+    //move from to
+    public GameObject thingToMove;
+    public Transform transformPositionToMoveTo;
+
+
+    //call event
+    public UnityEvent EventToCall;
+
+    //make object child
+    public GameObject thingToChange;
+    public GameObject newParentObject;
+
+    private void Start()
+    {
+        if (myType == InteractionType.OnOffController)
+        {
+            OnOff(false, true);
+        }
+        else if (myType == InteractionType.AnimationController)
+        {
+
+            if (ObjectWithAnimation != null)
+            {
+                string animName = ObjectWithAnimation.runtimeAnimatorController.animationClips[0].name;
+                //Debug.Log("my animation is called: " + animName);
+                //play on start but set to false so it stops
+                ObjectWithAnimation.Play(animName, 0, 0);
+                ObjectWithAnimation.enabled = false;
+            }
+        }
+        else if (myType == InteractionType.GrabAndReturn)
+        {
+            originalPos = gameObject.transform.position;
+            isGrabbable = true;
+        }
+        else if (myType == InteractionType.GrabAndStay)
+        {
+            isGrabbable = true;
+        }
+        else if (myType == InteractionType.AudioPlayer)
+        {
+            //stop the audio clip
+            //Debug.Log("hello im an audio player");
+            theAudioSource.clip = theAudioClip;
+            theAudioSource.playOnAwake = false;
+            theAudioSource.loop = false;
+            theAudioSource.Pause();
+        }
+        else if (myType == InteractionType.CallEvent)
+        {
+        }
+        else if (myType == InteractionType.GrabWithRotation)
+        {
+            originalPos = gameObject.transform.position;
+            isHandGrabbable = true;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("i bumped into something called: " + other.name);
+        DoTheThing();
+    }
+
+    public void DoTheThing()
+    {
+        //i clicked on this thing with an interaction controller on it
+        //Debug.Log("I did the thing");
+        if (myType == InteractionType.AnimationController)
+        {
+            //play or pause animation
+            //note, the animator must make a transition to exit if it is not on loop.
+
+            string animName = ObjectWithAnimation.runtimeAnimatorController.animationClips[0].name;
+            Debug.Log("my animation is called: " + animName);
+
+            Debug.Log("my animator state info normalized time: " + ObjectWithAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime); //< if this is at 1 its done
+            Debug.Log("my animator state info is loop true: " + ObjectWithAnimation.runtimeAnimatorController.animationClips[0].isLooping); //< if this is at 1 its done
+
+            if(ObjectWithAnimation.runtimeAnimatorController.animationClips[0].isLooping) //if loop is true
+            {
+                if (ObjectWithAnimation.isActiveAndEnabled) //if i am currently on, turn off
+                {
+                    Debug.Log("my animation was playing and enabled, it will stop now");
+                    ObjectWithAnimation.enabled = false;
+                }
+                else //if i am currently off, turn on
+                {
+                    ObjectWithAnimation.enabled = true;
+                }
+            }
+            else //loop is false
+            {
+                if (ObjectWithAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) //if i am done with my animation sequence (at the end)
+                {
+                    ObjectWithAnimation.Play(animName, 0, 0);
+                    ObjectWithAnimation.enabled = true;
+                }
+                else //either i am paused or i am playing and not done
+                {
+                    if (ObjectWithAnimation.isActiveAndEnabled) //if i am currently on, turn off
+                    {
+                        Debug.Log("my animation was playing and enabled, it will stop now");
+                        ObjectWithAnimation.enabled = false;
+                    }
+                    else //if i am currently off, turn on
+                    {
+                        ObjectWithAnimation.enabled = true;
+                    }
+                }
+            }
+
+        }
+        else if (myType == InteractionType.OnOffController)
+        {
+            Debug.Log("on off");
+
+            OnOffSwitch = !OnOffSwitch;
+            if (OnOffSwitch)
+            {
+                OnOff(true, false);
+            }
+            else
+            {
+                OnOff(false, true);
+            }
+        }
+        else if (myType == InteractionType.GrabAndReturn)
+        {
+            //movement handled in vr conroller raycast interactions .cs
+
+        }
+        else if (myType == InteractionType.GrabAndStay)
+        {
+            //movement handled in vr conroller raycast interactions .cs
+
+        }
+        else if (myType == InteractionType.AudioPlayer)
+        {
+            //play the audio from 0
+
+            //need audio source
+            //need audio clip
+            if (theAudioSource.isPlaying && theAudioSource.clip == theAudioClip)
+            {
+                theAudioSource.Stop();
+            }
+            else
+            {
+                theAudioSource.clip = theAudioClip;
+                theAudioSource.Play(0);
+            }
+        }
+        else if (myType == InteractionType.CallEvent)
+        {
+            Debug.Log("im going to call this event");
+            EventToCall.Invoke();
+            Debug.Log("i called my event");
+
+        }
+        else if (myType == InteractionType.GrabWithRotation)
+        {
+            //make it a child of your hand... when you let go, let it go
+            //movement handled in vr conroller raycast interactions .cs
+
+        }
+    }
+    void OnOff(bool bool1, bool bool2)
+    {
+        foreach (GameObject g in StartOFFClickON)
+        {
+            if (g != null)
+            {
+                g.SetActive(bool1);
+            }
+        }
+        foreach (GameObject g in StartONClickOFF)
+        {
+            if (g != null)
+            {
+                g.SetActive(bool2);
+            }
+        }
+    }
+}
