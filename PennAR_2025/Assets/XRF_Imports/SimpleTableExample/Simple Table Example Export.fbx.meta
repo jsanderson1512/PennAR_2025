@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Compartment Material
+    second: {fileID: 2100000, guid: 95f8372736101164aaff855bf1aeed6a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Invisible Material
     second: {fileID: 2100000, guid: 74fe4e22cce5dee478cd992d2851daa1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Little Object Material
+    second: {fileID: 2100000, guid: 1893dd42db566024b8de740ae21e4e79, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
