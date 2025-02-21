@@ -566,6 +566,8 @@ MonoBehaviour:
   LaserMaterial_Missed: {fileID: 2100000, guid: 546c709150ff3c84cad0738efc0ac0f6,
     type: 2}
   LaserMaterial_Hit: {fileID: 2100000, guid: 3704c33702d845646a8514629be020fb, type: 2}
+  isCanvasRaycast: 0
+  raycastCamera: {fileID: 0}
 --- !u!1 &4108492690768811823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,6 +1018,127 @@ MonoBehaviour:
   LaserMaterial_Missed: {fileID: 2100000, guid: 546c709150ff3c84cad0738efc0ac0f6,
     type: 2}
   LaserMaterial_Hit: {fileID: 2100000, guid: 3704c33702d845646a8514629be020fb, type: 2}
+  isCanvasRaycast: 0
+  raycastCamera: {fileID: 0}
+--- !u!1 &6793281705144965475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4491209777758469479}
+  - component: {fileID: 4398944935749943199}
+  - component: {fileID: 7550687056152183652}
+  - component: {fileID: 886959173497853626}
+  m_Layer: 0
+  m_Name: UPenn_ActivateKeyboardMouse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4491209777758469479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793281705144965475}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5580368891910073234}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4398944935749943199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793281705144965475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e20104907c7f4fa42ad52584d95795bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 5580368891910502324}
+  cameraRig: {fileID: 5580368891910502322}
+  speedMultiplier: 6
+  movementSpeed: 5
+  mouseSensitivity: 0.25
+--- !u!114 &7550687056152183652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793281705144965475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a446d70688c8c4fa88fb34dec318c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OriginMarker: {fileID: 0}
+  GeometryParent: {fileID: 0}
+  LeftController: {fileID: 5580368891910495210}
+  RightController: {fileID: 5580368891910491518}
+  CameraController: {fileID: 4398944935749943199}
+  ButtonEvent_Mouse_Down:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 886959173497853626}
+        m_TargetAssemblyTypeName: XRF_RaycastInteractions_VRController, Assembly-CSharp
+        m_MethodName: TriggerClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ButtonEvent_Mouse_Up:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 886959173497853626}
+        m_TargetAssemblyTypeName: XRF_RaycastInteractions_VRController, Assembly-CSharp
+        m_MethodName: TriggerUnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &886959173497853626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793281705144965475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcbf0d99e5d94434883dd177a7c90fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserDistance: 100
+  controllerGameObject: {fileID: 5580368891910502324}
+  pointerPrefab: {fileID: 8005529448073944864, guid: 34e1bb815aad3b643a5f3cac0da357f0,
+    type: 3}
+  LaserMaterial_Missed: {fileID: 2100000, guid: 546c709150ff3c84cad0738efc0ac0f6,
+    type: 2}
+  LaserMaterial_Hit: {fileID: 2100000, guid: 3704c33702d845646a8514629be020fb, type: 2}
+  isCanvasRaycast: 1
+  raycastCamera: {fileID: 5580368891909612622}
 --- !u!1 &7356127635866423706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1431,6 +1554,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6412495372845243444}
+    - targetCorrespondingSourceObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4491209777758469479}
     - targetCorrespondingSourceObject: {fileID: 459718, guid: 126d619cf4daa52469682f85c1378b4a,
         type: 3}
       insertIndex: -1
@@ -1484,6 +1611,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3469609664320153486}
+    - targetCorrespondingSourceObject: {fileID: 100002, guid: 126d619cf4daa52469682f85c1378b4a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6885194162949489390}
+    - targetCorrespondingSourceObject: {fileID: 100002, guid: 126d619cf4daa52469682f85c1378b4a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4462407220574820068}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 126d619cf4daa52469682f85c1378b4a,
         type: 3}
       insertIndex: -1
@@ -1492,6 +1627,12 @@ PrefabInstance:
 --- !u!4 &5575775322941689070 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4593680705043960, guid: 126d619cf4daa52469682f85c1378b4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5580368891910467862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &5580368891909612622 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2037080, guid: 126d619cf4daa52469682f85c1378b4a,
     type: 3}
   m_PrefabInstance: {fileID: 5580368891910467862}
   m_PrefabAsset: {fileID: 0}
@@ -1703,6 +1844,54 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!135 &6885194162949489390
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5580368891910502324}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4462407220574820068
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5580368891910502324}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5580368891910502326 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 126d619cf4daa52469682f85c1378b4a,

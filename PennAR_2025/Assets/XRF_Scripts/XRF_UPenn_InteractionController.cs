@@ -39,9 +39,10 @@ public class XRF_UPenn_InteractionController : MonoBehaviour
 
 
     //grab stuff
-    public Vector3 originalPos = Vector3.zero;
+    public Vector3 originalPos;
     public bool isGrabbable;
     public bool isHandGrabbable;
+    public bool returnToStart = false;
 
     //audio stuff
     public AudioSource theAudioSource;
@@ -80,6 +81,7 @@ public class XRF_UPenn_InteractionController : MonoBehaviour
         else if (myType == InteractionType.GrabAndReturn)
         {
             originalPos = gameObject.transform.position;
+            returnToStart = true;
             isGrabbable = true;
         }
         else if (myType == InteractionType.GrabAndStay)
@@ -100,7 +102,6 @@ public class XRF_UPenn_InteractionController : MonoBehaviour
         }
         else if (myType == InteractionType.GrabWithRotation)
         {
-            originalPos = gameObject.transform.position;
             isHandGrabbable = true;
         }
     }

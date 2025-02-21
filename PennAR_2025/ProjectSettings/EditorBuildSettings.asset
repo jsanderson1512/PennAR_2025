@@ -5,8 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/STUDENT_Scenes/Assignment03 - My Super Special Project.unity
+    guid: b86cbc7413212184aa49522d3e40eace
   - enabled: 1
-    path: Assets/XRF_Scenes/PennAR_2025 Base Scene.unity
+    path: Assets/XRF_Scenes/PennAR_2025 Base (save-as this scene).unity
     guid: 109ca10ec1aeb344c9d27c6cadd6a4ac
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 4fc5dac4441ee974198a9a5a125b1062,

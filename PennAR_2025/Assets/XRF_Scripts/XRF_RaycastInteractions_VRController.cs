@@ -13,6 +13,8 @@ public class XRF_RaycastInteractions_VRController : MonoBehaviour
     public GameObject pointerPrefab;
     public Material LaserMaterial_Missed;
     public Material LaserMaterial_Hit;
+    public bool isCanvasRaycast = false;
+    public Camera raycastCamera;
     #endregion
 
     #region PRIVATE VARIABLES
@@ -52,8 +54,24 @@ public class XRF_RaycastInteractions_VRController : MonoBehaviour
 
     private void Update()
     {
-        origin = controllerGameObject.transform.position;
-        direction = controllerGameObject.transform.forward;
+        Ray ray = new Ray();
+
+        if (isCanvasRaycast)
+        {
+            //using keyboard and mouse
+            ray = raycastCamera.ScreenPointToRay(Input.mousePosition);
+            origin = ray.origin;
+            direction = ray.direction;
+        }
+        else
+        {
+            //using vr controller
+            origin = controllerGameObject.transform.position;
+            direction = controllerGameObject.transform.forward;
+            ray = new Ray(origin, direction);
+        }
+
+
 
         if (somethingIsGrabbed)
         {
@@ -72,13 +90,13 @@ public class XRF_RaycastInteractions_VRController : MonoBehaviour
         }
         else
         {
-            pointerPrefab.SetActive(true);
             lineRend.enabled = true;
-            Ray ray = new Ray(origin, direction);
             RaycastHit myRayHit;
 
             if (Physics.Raycast(ray, out myRayHit, laserDistance) && controllerGameObject.activeSelf)
             {
+                pointerPrefab.SetActive(true);
+
                 //i shot out a ray and it hit something
                 //Debug.Log("I hit something");
                 hitObject = myRayHit.transform.gameObject;
@@ -95,8 +113,8 @@ public class XRF_RaycastInteractions_VRController : MonoBehaviour
                         Debug.Log("hey i hit a grabbable");
                         tempDistance = Vector3.Distance(origin, myRayHit.point);
                         isClickable = false;
-                        isHandGrabbable = false;
                         isGrabable = true;
+                        isHandGrabbable = false;
                         RayHit(hitObject);
                     }
                     else if (hitObject.GetComponent<XRF_UPenn_InteractionController>().isHandGrabbable)
@@ -123,6 +141,7 @@ public class XRF_RaycastInteractions_VRController : MonoBehaviour
             }
             else
             {
+                pointerPrefab.SetActive(false);
                 endPoint = origin + direction * 0.5f;
                 RayMissed();
             }
@@ -238,9 +257,10 @@ public class XRF_RaycastInteractions_VRController : MonoBehaviour
         {
             if(grabbedObject != null)
             {
-                if (grabbedObject.GetComponent<XRF_UPenn_InteractionController>().originalPos != Vector3.zero)
+                if (grabbedObject.GetComponent<XRF_UPenn_InteractionController>().returnToStart)
                 {
-                    grabbedObject.transform.position = grabbedObject.GetComponent<XRF_UPenn_InteractionController>().originalPos;
+                    grabbedObject.transform.position = basePosObject;
+                    //grabbedObject.transform.position = grabbedObject.GetComponent<XRF_UPenn_InteractionController>().originalPos;
                 }
             }
         }
