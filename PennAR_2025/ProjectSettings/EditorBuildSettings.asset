@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/STUDENT_Scenes/Assignment03 - My Super Special Project.unity
-    guid: b86cbc7413212184aa49522d3e40eace
   - enabled: 1
+    path: Assets/STUDENT_Scenes/In Class Table.unity
+    guid: 9654c00d34339904086c3036afae5685
+  - enabled: 0
     path: Assets/XRF_Scenes/PennAR_2025 Base (save-as this scene).unity
     guid: 109ca10ec1aeb344c9d27c6cadd6a4ac
   m_configObjects:

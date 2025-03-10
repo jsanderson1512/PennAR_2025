@@ -1032,6 +1032,7 @@ GameObject:
   - component: {fileID: 4398944935749943199}
   - component: {fileID: 7550687056152183652}
   - component: {fileID: 886959173497853626}
+  - component: {fileID: 7691878850698833077}
   m_Layer: 0
   m_Name: UPenn_ActivateKeyboardMouse
   m_TagString: Untagged
@@ -1139,6 +1140,19 @@ MonoBehaviour:
   LaserMaterial_Hit: {fileID: 2100000, guid: 3704c33702d845646a8514629be020fb, type: 2}
   isCanvasRaycast: 1
   raycastCamera: {fileID: 5580368891909612622}
+--- !u!114 &7691878850698833077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793281705144965475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b6af9f0c0cb1446b62eba6da329f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
 --- !u!1 &7356127635866423706
 GameObject:
   m_ObjectHideFlags: 0
