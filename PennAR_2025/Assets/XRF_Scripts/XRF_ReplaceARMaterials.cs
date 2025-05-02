@@ -24,7 +24,7 @@ public class XRF_ReplaceARMaterials : MonoBehaviour
             if (AR_Anchor_Origin != null)
             {
                 meshRenderers = AR_Anchor_Origin.GetComponentsInChildren<MeshRenderer>();
-                Debug.Log("i this many mesh renderers: " + meshRenderers.Length);
+                //Debug.Log("i this many mesh renderers: " + meshRenderers.Length);
 
                 foreach (MeshRenderer renderer in meshRenderers)
                 {
