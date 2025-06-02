@@ -3322,6 +3322,7 @@ MonoBehaviour:
   timePeriod: 0.5
   thingToRecord: {fileID: 1028516971}
   theGhostFollower: {fileID: 769051451}
+  interval: 5000
 --- !u!135 &769051453
 SphereCollider:
   m_ObjectHideFlags: 0

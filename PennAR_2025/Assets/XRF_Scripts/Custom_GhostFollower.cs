@@ -12,11 +12,44 @@ public class Custom_GhostFollower : MonoBehaviour
     public GameObject theGhostFollower;
     private int currentPosition;
 
-    // Start is called before the first frame update
-    void Start()
+    private float timestamp;
+    public int interval = 5000;
+   
+
+
+
+
+    private void Update()
     {
-        //make a function that repeats over and over, every x seconds...
-        StartCoroutine(PlayEverySeconds());
+        float theTime = Time.time;
+
+        if (theTime-timestamp > timePeriod)
+        {
+            //it has been some time;
+            //Debug.Log("hello, i am in play every seconds");
+            timestamp = theTime;
+            if (isRecording)
+            {
+                //do recording stuff
+                positionRecordings.Add(thingToRecord.transform.position);
+            }
+            else if (isPlaying)
+            {
+                //do playing stuff
+                if (currentPosition < positionRecordings.Count)
+                {
+                    theGhostFollower.transform.position = positionRecordings[currentPosition];
+                    currentPosition++;
+                }
+                else
+                {
+                    isRecording = false;
+                    isPlaying = false;
+                }
+
+            }
+        }
+
     }
 
     public void Button_StartRecordingPath()
@@ -39,38 +72,6 @@ public class Custom_GhostFollower : MonoBehaviour
         currentPosition = 0;
     }
 
-    private IEnumerator PlayEverySeconds()
-    {
-        yield return new WaitForSeconds(timePeriod);
-
-
-        //my code here
-        //Debug.Log("hello, i am in play every seconds");
-
-        if (isRecording)
-        {
-            //do recording stuff
-            positionRecordings.Add(thingToRecord.transform.position);
-        }
-        else if (isPlaying)
-        {
-            //do playing stuff
-            if (currentPosition < positionRecordings.Count)
-            {
-                theGhostFollower.transform.position = positionRecordings[currentPosition];
-                currentPosition++;
-            }
-            else
-            {
-                isRecording = false;
-                isPlaying = false;
-            }
-
-        }
-
-
-        StartCoroutine(PlayEverySeconds());
-    }
 
 
 }
